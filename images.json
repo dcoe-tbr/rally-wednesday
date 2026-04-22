@@ -1,6 +1,6 @@
 {
   "_howToAddImages": "1) Drop a .jpg/.jpeg into the images/ folder. 2) Add an entry below. 3) Commit + push — Vercel auto-deploys. Order = rotation order. First image loads first.",
-  "rotationSeconds": 7,
+  "rotationSeconds": 4,
   "crossfadeSeconds": 1.5,
   "images": [
     { "file": "bg-01.jpg", "alt": "Rally ride" },

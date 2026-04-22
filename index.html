@@ -117,7 +117,7 @@
     color: var(--paper);
   }
   .wordmark img {
-    height: clamp(44px, 4.8vw, 64px);
+    height: clamp(36px, 4vw, 54px);
     width: auto;
     display: block;
   }
@@ -190,8 +190,8 @@
     text-transform: uppercase;
     color: var(--paper-70);
     line-height: 1.7;
+    margin-left: 10px;
   }
-  .stamp .on { color: var(--paper); }
 
   /* bottom-right scroll */
   .hero-corner {
@@ -245,12 +245,27 @@
     .topbar { padding: 18px 18px 0; flex-direction: column; gap: 16px; }
     .nav-pills { gap: 4px; }
     .pill { padding: 8px 12px; font-size: 9px; letter-spacing: 0.14em; }
-    .wordmark img { height: 42px; }
+    .wordmark img { height: 36px; }
     .hero-line { font-size: clamp(44px, 12vw, 84px); }
     .hero-bottom { bottom: 24px; left: 18px; right: 18px; gap: 24px; }
     .stamp { font-size: 9px; letter-spacing: 0.12em; }
     .hero-corner { display: none; }
     .hero-center .tag { font-size: 9px; letter-spacing: 0.18em; }
+    .hero-center .tag .tag-time { display: none; }
+    .pill--updates {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+    }
+    .pill--cta {
+      background: rgba(14,14,14,0.35);
+      color: var(--paper-85);
+      border-color: var(--paper-20);
+    }
+    .pill--cta::before {
+      background: transparent;
+      border-color: currentColor;
+    }
   }
   @media (max-width: 520px) {
     .stamp .coords { display: none; }
@@ -289,6 +304,8 @@
     max-width: 22ch;
   }
   .section-head .title .accent { color: var(--clay); }
+  .mobile-br { display: none; }
+  @media (max-width: 820px) { .mobile-br { display: inline; } }
   @media (max-width: 720px) {
     .section-head { flex-direction: column; align-items: flex-start; gap: 14px; margin-bottom: 36px; }
   }
@@ -336,11 +353,12 @@
     text-transform: uppercase;
     color: var(--paper-70);
   }
-  .status-next {
+  .status-next,
+  .ride-row .status.status-next {
     display: inline-block;
     padding: 5px 10px;
     background: var(--clay);
-    color: var(--ink);
+    color: #000;
     border-radius: 9999px;
   }
   .status-past { color: var(--paper-50); opacity: 0.6; }
@@ -483,7 +501,7 @@
     color: var(--paper-70);
     max-width: 44ch;
   }
-  .apres .btn { margin-top: 32px; }
+  .apres .btn { margin-top: 48px; }
   .apres-photo {
     position: relative;
     aspect-ratio: 4/5;
@@ -618,7 +636,7 @@
       <a class="pill" href="#meet">Meet Up</a>
       <a class="pill" href="#apres">Aprés</a>
       <a class="pill pill--cta" href="#join">Join</a>
-      <a class="pill pill--solid" href="https://luma.com/rally" target="_blank" rel="noopener">Get Ride Updates</a>
+      <a class="pill pill--solid pill--updates" href="https://luma.com/rally" target="_blank" rel="noopener">Get Ride Updates</a>
     </nav>
   </div>
 
@@ -629,10 +647,9 @@
   <div class="hero-bottom">
     <h1 class="hero-line">We Fixed <span class="accent">Wednesdays.</span></h1>
     <div class="stamp" id="stamp">
-      <div id="stamp-time" class="on">—:—</div>
-      <div id="stamp-weather">Sausalito · 62° · Loading</div>
+      <div id="stamp-time">—:—</div>
+      <div id="stamp-weather">Marin, CA · 62° · Loading</div>
       <div class="coords">37.8590° N &nbsp; 122.4852° W</div>
-      <div>© 2026 Rally · Marin, CA</div>
     </div>
   </div>
 
@@ -647,7 +664,7 @@
   <div class="container">
     <div class="section-head">
       <div class="num">01 — 2026 Season</div>
-      <h2 class="title">Six Wednesdays. <span class="accent">Block them off.</span></h2>
+      <h2 class="title">Six Wednesdays.<br> <span class="accent">Block them off.</span></h2>
     </div>
     <div class="schedule-list" id="schedule-list"></div>
   </div>
@@ -658,7 +675,7 @@
   <div class="container">
     <div class="section-head">
       <div class="num">02 — Start Line</div>
-      <h2 class="title">Township. <span class="accent">5:30 sharp.</span></h2>
+      <h2 class="title">Township. <br class="mobile-br"><span class="accent">5:30 sharp.</span></h2>
     </div>
 
     <div class="meet-grid">
@@ -698,7 +715,7 @@
         </div>
         <h2>Every ride ends <span class="accent">at the picnic table.</span></h2>
         <p>Drinks and bites at Hook Fish, sometimes wherever the wind takes us. Stay as long as you want.</p>
-        <a class="btn btn--solid" href="https://share.google/DEBFKBVWGam9vICLE" target="_blank" rel="noopener">Hook Fish</a>
+        <a class="btn btn--solid" href="#join">Join</a>
       </div>
       <div class="apres-photo">
         <img src="images/photo-beers.jpeg" alt="Riders at a picnic table after the ride">
@@ -768,6 +785,10 @@
       .then(config => {
         const imgs = Array.isArray(config.images) ? config.images.filter(i => i && i.file) : [];
         if (!imgs.length) return;
+        for (let i = imgs.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [imgs[i], imgs[j]] = [imgs[j], imgs[i]];
+        }
 
         const crossfade = Number(config.crossfadeSeconds) > 0 ? Number(config.crossfadeSeconds) : 1.5;
         const rotation = Number(config.rotationSeconds) > 0 ? Number(config.rotationSeconds) : 7;
@@ -858,7 +879,7 @@
     if (next) {
       const m = MONTHS[next.date.getMonth()];
       const d = String(next.date.getDate()).padStart(2, '0');
-      document.getElementById('hero-tag').textContent = `Next Ride · ${m} ${d} · 5:30 PM`;
+      document.getElementById('hero-tag').innerHTML = `Next Ride · ${m} ${d}<span class="tag-time"> · 5:30 PM</span>`;
     } else {
       document.getElementById('hero-tag').textContent = 'Season Complete · See you in 2027';
     }
@@ -889,9 +910,9 @@
         const c = data.current;
         const t = Math.round(c.temperature_2m);
         const cond = CODE[c.weather_code] || 'Unknown';
-        document.getElementById('stamp-weather').textContent = `Sausalito · ${t}° · ${cond}`;
+        document.getElementById('stamp-weather').textContent = `Marin, CA · ${t}° · ${cond}`;
       }).catch(() => {
-        document.getElementById('stamp-weather').textContent = 'Sausalito · Check the sky';
+        document.getElementById('stamp-weather').textContent = 'Marin, CA · Check the sky';
       });
   })();
 </script>
