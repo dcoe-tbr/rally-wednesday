@@ -837,12 +837,12 @@
   /* ---------- SCHEDULE ---------- */
   (function(){
     const RIDES = [
-      { n: '01', date: new Date(2026, 4, 6),  label: "Season Opener" },
-      { n: '02', date: new Date(2026, 5, 3),  label: "Long Light" },
-      { n: '03', date: new Date(2026, 6, 1),  label: "Mid‑Summer" },
-      { n: '04', date: new Date(2026, 7, 5),  label: "August Classic" },
-      { n: '05', date: new Date(2026, 8, 2),  label: "Golden Hour" },
-      { n: '06', date: new Date(2026, 9, 7),  label: "Closing" }
+      { n: '01', date: new Date(2026, 4, 6),  label: "Season Opener",  url: "https://luma.com/ar3k2vn0" },
+      { n: '02', date: new Date(2026, 5, 3),  label: "Long Light",     url: "https://luma.com/hvywplxr" },
+      { n: '03', date: new Date(2026, 6, 1),  label: "Mid‑Summer",     url: "https://luma.com/24ywhalx" },
+      { n: '04', date: new Date(2026, 7, 5),  label: "August Classic", url: "https://luma.com/ngcm9dgp" },
+      { n: '05', date: new Date(2026, 8, 2),  label: "Golden Hour",    url: "https://luma.com/88kgqy01" },
+      { n: '06', date: new Date(2026, 9, 7),  label: "Closing",        url: "https://luma.com/jnwc1lza" }
     ];
     const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     const today = new Date();
@@ -862,7 +862,7 @@
           ? '<span class="status status-next">Next</span>'
           : '<span class="status">Upcoming</span>';
       const a = document.createElement('a');
-      a.href = 'https://luma.com/rally';
+      a.href = r.url;
       a.target = '_blank'; a.rel = 'noopener';
       a.className = 'ride-row' + (past ? ' past' : '');
       a.innerHTML = `
